@@ -1,6 +1,9 @@
 from textSummarizer.constants import *
 from textSummarizer.utils.common import read_yaml, create_directories
-from textSummarizer.entity import (DataIngestionConfig,DataValidationConfig)
+from textSummarizer.entity import (DataIngestionConfig,
+                                   DataValidationConfig,
+                                   DataTransformationConfig,
+                                   ModelTrainingConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -39,3 +42,39 @@ class ConfigurationManager:
              ALL_REQUIRED_FILES = config.ALL_REQUIRED_FILES,
         )
         return data_validation_config
+    
+    # Data Transformation
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+         config = self.config.data_transformation
+         create_directories([config.root_dir])
+
+         data_transformation_config = DataTransformationConfig(
+              root_dir = config.root_dir,
+              data_path = config.data_path,
+              tokenizer_name = config.tokenizer_name
+          )
+
+         return data_transformation_config
+    
+  # Model Training
+    def get_model_trainer_config(self) -> ModelTrainingConfig:
+         config = self.config.model_trainer
+         params = self.params.TrainingArguments
+
+         create_directories([config.root_dir])
+
+         model_trainer_config = ModelTrainingConfig(
+             root_dir = config.root_dir,
+             data_path = config.data_path,
+             model_ckpt = config.model_ckpt,
+             num_train_epochs = params.num_train_epochs,
+             warmup_steps = params.warmup_steps,
+             per_device_train_batch_size = params.per_device_train_batch_size,
+             weight_decay = params.weight_decay,
+             logging_steps = params.logging_steps,
+             evalution_strategy = params.evalution_strategy,
+             eval_steps = params.eval_steps,
+             save_steps = params.save_steps,
+             gradient_accumulation_steps = params.gradient_accumulation_steps,
+         )
+         return model_trainer_config 
