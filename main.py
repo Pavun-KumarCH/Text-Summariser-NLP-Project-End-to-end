@@ -38,6 +38,7 @@ except Exception as e:
 STAGE_NAME = "Model Training stage"
 try:
     logger.info(f"#######################################")
+    logger.info(f"Run it on google colab if any error encounters")
     logger.info(f">>>>> stage {STAGE_NAME} Started <<<<<")
     model_trainer = ModelTrainerTraingingPipeline()
     model_trainer.main3()
