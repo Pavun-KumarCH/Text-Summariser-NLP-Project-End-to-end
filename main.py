@@ -52,8 +52,8 @@ STAGE_NAME = "Model Evalution stage"
 try:
     logger.info(f"#######################################")
     logger.info(f">>>>> stage {STAGE_NAME} Started <<<<<")
-    model_trainer = ModelEvaluationPipeline()
-    model_trainer.main4()
+    model_evalution = ModelEvaluationPipeline()
+    model_evalution.main4()
     logger.info(f">>>>> stage {STAGE_NAME} Completed <<<<<\n\nx=========x")
 except Exception as e:
     raise e
